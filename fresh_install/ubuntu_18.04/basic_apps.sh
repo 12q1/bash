@@ -1,4 +1,5 @@
 # This script adds a number of apt packages that I like to use
+# Created on 18/2/2020 
 
 echo '------------------------------------------------------'
 echo -e '\e[1;36m Initializing... \e[0m'
@@ -103,6 +104,10 @@ echo -e '\e[1;34m -trash-cli \e[0m'
 sudo apt install trash-cli -y
 # Command line tool for trashing files instead of rm https://github.com/sindresorhus/trash-cli
 
+echo -e '\e[1;34m -ubuntu-restricted-extras \e[0m'
+sudo apt install ubuntu-restricted-extras -y
+# Adding extra media codecs
+
 echo -e '\e[1;34m -unrar \e[0m'
 sudo apt install unrar -y
 # Tool to unpack rar files
@@ -133,11 +138,18 @@ echo '------------------------------------------------------'
 sleep 2s
 
 sudo apt update && sudo apt upgrade -y
-##remove unused packages
-sudo apt autoremove -y
-##cleans and clear apt cache
+
+# removes amazon bloatware
+sudo apt purge ubuntu-web-launchers
+
+# removes packages that failed to install
 sudo apt autoclean -y
+
+# removes the apt-cache
 sudo apt clean
+
+# remove unused dependencies
+sudo apt autoremove -y
 
 echo '------------------------------------------------------'
 echo -e '\e[1;36m System Info \e[0m'

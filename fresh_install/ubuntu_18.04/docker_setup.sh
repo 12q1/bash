@@ -70,8 +70,10 @@ sleep 2s
 sudo docker run hello-world
 
 echo "-----------------------------------------------"
-echo -e "\e[1;36m Step 8: Post Installation steps (Allows non-root to run docker without sudo) \e[0m"
+echo -e "\e[1;36m Step 8: Post Installation steps \e[0m"
 echo "-----------------------------------------------"
+#remove this step if security is a concern
+#it allows non-root users to run docker
 
 sleep 2s
 
