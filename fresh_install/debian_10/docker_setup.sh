@@ -1,4 +1,4 @@
-# This script automates the basic installation of docker-ce (stable) on Ubuntu 18.04
+# This script automates the basic installation of docker-ce (stable) on Debian 10 (Buster)
 # It follows the steps on the official documentation at https://docs.docker.com/install/linux/docker-ce/debian/
 # Created on 18/2/2020 check link to see if instructions have changed.
 
