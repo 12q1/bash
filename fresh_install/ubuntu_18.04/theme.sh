@@ -28,7 +28,7 @@ cd ~/Documents
 mkdir powerline_shell_stuff
 git clone https://github.com/b-ryan/powerline-shell
 cd powerline-shell
-python setup.py install
+sudo python setup.py install
 
 echo '#--------Start of Powerline script----------' >> ~/.bashrc
 echo "function _update_ps1() { 
