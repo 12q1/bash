@@ -17,6 +17,10 @@ sudo apt install papirus-icon-theme -y
 echo -e '\e[1;34m -materia-gtk-theme \e[0m'
 sudo apt install materia-gtk-theme -y
 
+echo -e '\e[1;34m -python-setuptools \e[0m'
+sudo apt-get install python-setuptools
+#dependency needed to install powerline-shell
+
 echo "-----------------------------------------------"
 echo -e "\e[1;36m Installing powerline-shell \e[0m"
 echo "-----------------------------------------------"
@@ -26,7 +30,7 @@ git clone https://github.com/b-ryan/powerline-shell
 cd powerline-shell
 python setup.py install
 
-echo '--------Start of Powerline script----------' >> ~/.bashrc
+echo '#--------Start of Powerline script----------' >> ~/.bashrc
 echo "function _update_ps1() { 
     PS1=\$(powerline-shell \$?) 
 } 
@@ -34,7 +38,7 @@ if [[ \$TERM != linux && ! \$PROMPT_COMMAND =~ _update_ps1 ]]; then
     PROMPT_COMMAND=\"_update_ps1; \$PROMPT_COMMAND\" 
 fi" >> ~/.bashrc
 
-echo '---------End of Powerline script-----------' >> ~/.bashrc
+echo '#---------End of Powerline script-----------' >> ~/.bashrc
 
 echo "-----------------------------------------------"
 echo -e "\e[1;36m Done \e[0m"
