@@ -22,7 +22,7 @@ sudo apt-get install \
     ca-certificates \
     curl \
     gnupg-agent \
-    software-properties-common
+    software-properties-common -y
 
 echo "-----------------------------------------------"
 echo -e "\e[1;36m Step 3: Adding official GPG key \e[0m"
@@ -59,7 +59,7 @@ sleep 2s
 
 sudo apt-get update
 
-sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 
 echo "-----------------------------------------------"
 echo -e "\e[1;36m Step 7: Verifying Docker Installation (Should see hello-world image) \e[0m"

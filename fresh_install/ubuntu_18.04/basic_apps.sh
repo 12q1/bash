@@ -140,7 +140,7 @@ sleep 2s
 sudo apt update && sudo apt upgrade -y
 
 # removes amazon bloatware
-sudo apt purge ubuntu-web-launchers
+sudo apt purge ubuntu-web-launchers -y
 
 # removes packages that failed to install
 sudo apt autoclean -y
