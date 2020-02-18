@@ -32,10 +32,10 @@ echo "alias trash='trash-put'" >> ~/.bash_aliases
 
 echo "alias updateAll='sudo apt update && sudo apt upgrade'" >> ~/.bash_aliases
 
-echo "ytmp3='youtube-dl -x --audio-format mp3'" >> ~/.bash_aliases
+echo "alias ytmp3='youtube-dl -x --audio-format mp3'" >> ~/.bash_aliases
 # requires youtube-dl
 
-echo "alias transp=\"sh -c 'xprop -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY $(printf 0x%x $((0xffffffff * 80 / 100)))'\"" >> ~/.bash_aliases
+echo "alias transp=\"sh -c 'xprop -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY \$(printf 0x%x $((0xffffffff * 80 / 100)))'\"" >> ~/.bash_aliases
 # next window you click will become transparent
 
 echo '------------------------------------------------------'
