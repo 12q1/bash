@@ -1,4 +1,6 @@
 # This script contains ppas, apt installs, and configurations involved with theming
+# Running this script multiple times will mess up your .bashrc file, take care
+# Last update 19/2/2020
 
 echo "-----------------------------------------------"
 echo -e "\e[1;36m Installing packages \e[0m"
@@ -40,8 +42,22 @@ fi" >> ~/.bashrc
 echo '#---------End of Powerline script-----------' >> ~/.bashrc
 
 echo "-----------------------------------------------"
+echo -e "\e[1;36m Removing Ubuntu-dock \e[0m"
+echo "-----------------------------------------------"
+sudo apt remove gnome-shell-extension-ubuntu-dock
+#This segment removes the ubuntu default dock
+
+echo "-----------------------------------------------"
+echo -e "\e[1;36m Choose css file\e[0m"
+echo "-----------------------------------------------"
+sudo update-alternatives --config gdm3.css
+#Pick .../theme/gnome-shell.css for default gnome appearance
+
+echo "-----------------------------------------------"
 echo -e "\e[1;36m Done \e[0m"
 echo "-----------------------------------------------"
 
 cd ~
 source .bashrc
+
+# EOF
