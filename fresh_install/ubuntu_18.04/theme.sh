@@ -41,6 +41,7 @@ echo -e "\e[1;36m Installing powerline-shell \e[0m"
 echo "-----------------------------------------------"
 cd ~/Documents
 mkdir powerline_shell_stuff
+cd powerline_shell_stuff
 git clone https://github.com/b-ryan/powerline-shell
 cd powerline-shell
 sudo python setup.py install
