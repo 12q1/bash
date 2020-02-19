@@ -29,8 +29,11 @@ echo -e '\e[1;34m -python-setuptools \e[0m'
 sudo apt install python-setuptools -y
 # dependency needed to install powerline-shell
 
-echo -e '\e[1;34m -gnome-session'
+echo -e '\e[1;34m -gnome-session \e[0m'
 sudo apt install gnome-session -y
+
+echo -e '\e[1;34m -vanilla-gnome-desktop \e[0m'
+sudo apt install vanilla-gnome-desktop -y
 # installs vanilla gnome settings
 
 echo "-----------------------------------------------"
