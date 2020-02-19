@@ -1,7 +1,8 @@
 # This script **appends** the ~/.bash_aliases file with
 # custom aliases and binds that I use.
 # If you don't want to append aliases just copy .bash_aliases to your home folder
-# Running this script multiple times will mess up your ~/.bash_aliases file
+# Running this script multiple times may mess up your ~/.bash_aliases file, make a backup
+# Last update 19/2/2020
 
 touch ~/.bash_aliases
 #creates .bash_aliases in home folder if one doesn't exist

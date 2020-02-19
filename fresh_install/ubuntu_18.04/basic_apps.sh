@@ -28,10 +28,6 @@ echo -e '\e[1;34m -filezilla \e[0m'
 sudo apt install filezilla -y
 # FTP client https://filezilla-project.org/
 
-echo -e '\e[1;34m -fonts-powerline \e[0m'
-sudo apt install fonts-powerline -y
-# Font needed for Powerline statusline https://github.com/powerline/fonts
-
 echo -e '\e[1;34m -gimp \e[0m'
 sudo apt install gimp -y
 # Image editing software https://www.gimp.org/
