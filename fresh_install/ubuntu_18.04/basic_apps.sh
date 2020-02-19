@@ -110,6 +110,10 @@ echo -e '\e[1;34m -trash-cli \e[0m'
 sudo apt install trash-cli -y
 # Command line tool for trashing files instead of rm https://github.com/sindresorhus/trash-cli
 
+echo -e '\e[1;34m -tree \e[0m'
+sudo apt install tree -y
+# View directories in tree format
+
 echo -e '\e[1;34m -ubuntu-restricted-extras \e[0m'
 sudo apt install ubuntu-restricted-extras -y
 # Adding extra media codecs

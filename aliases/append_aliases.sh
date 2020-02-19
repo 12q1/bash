@@ -17,7 +17,10 @@ echo "alias cleanUp='sudo apt autoclean -y && sudo apt clean && sudo apt autorem
 
 echo "alias duh='du -sh'" >> ~/.bash_aliases
 
+echo "alias gac='git add . && git commit -m'" >> ~/.bash_aliases
+
 echo "alias install='sudo apt install'" >> ~/.bash_aliases
+# requires git
 
 echo "alias myip='curl http://ipecho.net/plain; echo'" >> ~/.bash_aliases
 # requires curl
