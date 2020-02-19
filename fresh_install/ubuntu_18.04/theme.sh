@@ -36,6 +36,10 @@ echo -e '\e[1;34m -vanilla-gnome-desktop \e[0m'
 sudo apt install vanilla-gnome-desktop -y
 # installs vanilla gnome settings
 
+echo -e '\e[1;34m -gnome-shell-extension-system-monitor \e[0m'
+sudo apt install gnome-shell-extension-system-monitor -y
+# installs system monitor in top bar
+
 echo "-----------------------------------------------"
 echo -e "\e[1;36m Installing powerline-shell \e[0m"
 echo "-----------------------------------------------"

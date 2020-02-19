@@ -8,6 +8,14 @@ echo '------------------------------------------------------'
 sudo apt-get update && sudo apt-get upgrade -y
 
 echo '------------------------------------------------------'
+echo -e '\e[1;36m Adding ppas for non-apt packages \e[0m'
+echo '------------------------------------------------------'
+
+sudo add-apt-repository -y ppa:teejee2008/ppa
+
+sudo apt update
+
+echo '------------------------------------------------------'
 echo -e '\e[1;36m Installing basic applications (Ubuntu 18.04) \e[0m'
 echo '------------------------------------------------------'
 sleep 2s
@@ -59,6 +67,8 @@ sudo apt install nmap -y
 echo -e '\e[1;34m -qbittorrent \e[0m'
 sudo apt install qbittorrent -y
 # Bittorrent client https://www.qbittorrent.org/
+gio mime x-scheme-handler/magnet qbittorrent.desktop
+# sets qbittorent as default application for magnetic lings
 
 echo -e '\e[1;34m -ranger \e[0m'
 sudo apt install ranger -y
@@ -129,6 +139,13 @@ sudo apt install zenmap -y
 # GUI interface for nmap https://nmap.org/zenmap/
 
 echo '------------------------------------------------------'
+echo -e '\e[1;36m Installing snap packages... \e[0m'
+echo '------------------------------------------------------'
+sleep 2s
+
+sudo snap install postman
+
+echo '------------------------------------------------------'
 echo -e '\e[1;36m Performing final cleanup... \e[0m'
 echo '------------------------------------------------------'
 sleep 2s
@@ -156,3 +173,6 @@ echo '------------------------------------------------------'
 echo -e "\e[1;36m  Install chrome, vscode, discord, nordvpn, nvm, yarn, postman, docker-ce separately \e[0m"
 echo '------------------------------------------------------'
 
+echo "Timeshift requires manual configuration"
+
+# EOF
