@@ -68,6 +68,7 @@ echo -e '\e[1;34m -qbittorrent \e[0m'
 sudo apt install qbittorrent -y
 # Bittorrent client https://www.qbittorrent.org/
 gio mime x-scheme-handler/magnet qbittorrent.desktop
+gio mime application/x-bittorrent qbittorrent.desktop
 # sets qbittorent as default application for magnetic lings
 
 echo -e '\e[1;34m -ranger \e[0m'
@@ -147,7 +148,13 @@ echo -e '\e[1;36m Installing snap packages... \e[0m'
 echo '------------------------------------------------------'
 sleep 2s
 
-sudo snap install postman
+echo -e '\e[1;34m -postman \e[0m'
+sudo snap install postman -y
+# HTTP request testing suite https://www.postman.com/
+
+echo -e '\e[1;34m -dbeaver \e[0m'
+sudo snap install dbeaver -y
+# Database viewer https://dbeaver.io/
 
 echo '------------------------------------------------------'
 echo -e '\e[1;36m Performing final cleanup... \e[0m'
