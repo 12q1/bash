@@ -1,6 +1,17 @@
 #!/bin/bash
 set -e
 
+# --- User Input ---
+echo "--- Initial Setup Configuration ---"
+# Prompt for Git Username
+read -p "Enter your Git username (e.g., '12q1'): " GIT_NAME
+echo "Git Username set to: $GIT_NAME"
+
+# Prompt for email
+read -p "Enter your email address (for Git and SSH key comment): " GIT_EMAIL
+echo "Email set to: $GIT_EMAIL"
+echo ""
+
 # --- System Updates and Essentials ---
 echo "--- Updating system and installing essential packages ---"
 sudo apt update && sudo apt upgrade -y
@@ -41,7 +52,6 @@ export NVM_DIR="$HOME/.nvm"
 # Install Node.js LTS if no LTS version is installed
 if ! nvm ls | grep -q 'lts'; then
   echo "--- Installing Node.js LTS via nvm ---"
-  # Use --delete-prefix in case a conflicting .npmrc exists from a previous run
   nvm install --lts
   nvm alias default lts/*
 fi
@@ -72,6 +82,12 @@ if ! pyenv versions --bare | grep -q '^3.12'; then
   pyenv global 3.12
 fi
 
+# --- Git Configuration ---
+echo "--- Setting Git configuration ---"
+git config --global user.email "$GIT_EMAIL"
+git config --global user.name "$GIT_NAME"
+git config --global init.defaultBranch main
+
 # --- Link alias + Starship config from repo ---
 echo "--- Linking alias and starship files from repo ---"
 
@@ -96,9 +112,39 @@ eval "$(starship init bash)"
 EOF
 fi
 
+# --- Bash Autocomplete Settings ---
+if ! grep -q '# Autocomplete Settings' ~/.bashrc; then
+  echo "--- Adding Bash autocomplete settings to .bashrc ---"
+  cat <<'EOF' >> ~/.bashrc
+
+# Autocomplete Settings
+bind 'set completion-ignore-case on' # ignores case in autocomplete
+bind 'set show-all-if-ambiguous on' # single tab for autocomplete
+EOF
+fi
+
+# --- SSH Key Generation ---
+if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
+  echo "--- Generating a new ED25519 SSH key ---"
+  mkdir -p "$HOME/.ssh"
+  # Generate the key non-interactively, using the provided email as a comment
+  ssh-keygen -t ed25519 -N "" -C "$GIT_EMAIL" -f "$HOME/.ssh/id_ed25519"
+
+  echo "--- SSH key generated successfully ---"
+else
+  echo "--- SSH key already exists, skipping generation ---"
+fi
+
 # --- Final Cleanup ---
 sudo apt autoremove -y && sudo apt autoclean -y && sudo apt clean
 
+# --- Final Output ---
+echo ""
+echo "❗ Your SSH public key (copy this to GitHub, GitLab, etc.):"
+echo "----------------------------------------------------------------"
+cat "$HOME/.ssh/id_ed25519.pub"
+echo "----------------------------------------------------------------"
+echo ""
 echo "--- Setup complete! ✅ ---"
 echo "❗ IMPORTANT: For the prompt to display correctly, ensure you have a Nerd Font set in your terminal."
 echo "👉 Restart your shell or run: source ~/.bashrc"

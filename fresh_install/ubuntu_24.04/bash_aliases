@@ -50,6 +50,11 @@ alias tree1='tree -L 1'                              # 1-level tree view
 # ===========================
 alias updateAll='sudo apt update && sudo apt upgrade -y'
 alias updateFull='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y'
+alias cleanUp='sudo apt autoclean -y && sudo apt clean && sudo apt autoremove'
+alias install='sudo apt install'
+alias remove='sudo apt remove --purge'
+alias reboot='sudo reboot'
+alias shutdown='sudo shutdown'
 alias cronlog='sudo tail -f /var/log/syslog | grep CRON'
 alias fwRules='sudo ufw status numbered'
 alias rsysStat='service rsyslog status'
