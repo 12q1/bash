@@ -1,0 +1,171 @@
+# ============================================
+# ~/.bash_aliases
+# Custom Bash Aliases for Navigation, Git,
+# System Maintenance, SSH, and DevOps Utilities
+# Reload with: source ~/.bash_aliases
+# ============================================
+
+
+# ===========================
+# ⚡️ General Quality-of-Life
+# ===========================
+alias c='clear'                                  # Clear screen
+alias cls='clear'                                # Windows muscle memory
+alias reload='exec "$SHELL"'                     # Restart shell
+alias path='echo -e ${PATH//:/\\n}'              # Pretty print PATH
+alias please='sudo $(fc -ln -1)'                 # Rerun last command with sudo
+alias mkcd='foo(){ mkdir -p "$1" && cd "$1"; }; foo'   # Make + cd into dir
+alias editbash='nano ~/.bash_aliases'            # Edit this file
+alias reloadbash='source ~/.bash_aliases'        # Reload aliases
+alias editrc='nano ~/.bashrc'                    # Edit .bashrc quickly
+
+
+# ===========================
+# 📁 Directory Navigation
+# ===========================
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias winhome='cd /mnt/c/Users/ThomasHamMassarius'     # Jump to Windows home (WSL)
+alias findme='explorer.exe .'                         # Open current dir in Explorer
+alias mkcd='foo(){ mkdir -p "$1" && cd "$1"; }; foo'  # Create + enter directory
+
+
+# ===========================
+# 📜 File Listing
+# ===========================
+alias ls='ls --color=auto'
+alias l='ls -CF'
+alias la='ls -A'
+alias ll='ls -alF'
+alias dudir='du -sh -- * | sort -h'                  # Sort dirs by disk usage
+alias dirsize='du -sh * | sort -h'                   # Folder sizes
+alias largest='du -ah . | sort -rh | head -20'       # Largest 20 files
+alias recent='ls -lt | head -20'                     # Most recent files
+alias tree1='tree -L 1'                              # 1-level tree view
+
+
+# ===========================
+# ⚙️ System & Utilities
+# ===========================
+alias updateAll='sudo apt update && sudo apt upgrade -y'
+alias updateFull='sudo apt update && sudo apt full-upgrade -y && sudo apt autoremove -y'
+alias cronlog='sudo tail -f /var/log/syslog | grep CRON'
+alias fwRules='sudo ufw status numbered'
+alias rsysStat='service rsyslog status'
+alias resbash='source ~/.bashrc'
+alias wipeHistory='history -c && history -w'
+alias mem='free -h'                                  # Memory usage
+alias dfh='df -h'                                    # Disk usage (human-readable)
+alias ports='sudo lsof -i -P -n | grep LISTEN'       # Open ports
+alias ipinfo='ip -c a'                               # IP info with color
+alias topcpu='ps -eo pid,comm,%cpu,%mem --sort=-%cpu | head -n 10'   # Top CPU users
+alias topmem='ps -eo pid,comm,%mem,%cpu --sort=-%mem | head -n 10'   # Top memory users
+alias sysinfo='neofetch || screenfetch'              # System info
+
+
+# ===========================
+# 🔍 Search Helpers
+# ===========================
+alias grep='grep --color=auto'                       # Highlight grep matches
+alias histg='history | grep'                         # Search history quickly
+# egrep/fgrep deprecated — grep handles -E/-F internally
+
+
+# ===========================
+# 🧰 Git Shortcuts
+# ===========================
+alias gs='git status -sb'                            # Compact git status
+alias gb='git branch'
+alias gco='git checkout'
+alias gcm='git commit -m'
+alias gp='git push'
+alias gl='git log --oneline --graph --decorate'      # Pretty log graph
+alias gac='git add . && git commit -m'               # Add all + commit
+alias amend='git commit --amend --no-edit'           # Amend last commit
+alias gundo='git reset --soft HEAD~1'                # Undo last commit
+alias gitclean='git branch --merged master | grep -v master | xargs -r git branch -d'
+alias gitpurge='git branch | grep -v master | xargs git branch -D'    # ⚠️ Delete all non-master branches
+
+
+# ===========================
+# 🧠 DevOps / Remote Servers
+# ===========================
+
+# Todo: move these into ~/.ssh/config for cleaner usage.
+
+
+# ===========================
+# 🧾 Automation / Scripts
+# ===========================
+alias purge='python3 /mnt/c/Users/ThomasHamMassarius/Documents/webdev/massariuscdn.com/automating/purge_cloudflare.py 1'
+
+
+# ===========================
+# 🐳 Docker & Containers
+# ===========================
+alias d='docker'
+alias dps='docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"'
+alias dstop='docker stop $(docker ps -q)'
+alias drm='docker rm $(docker ps -aq)'
+alias dclean='docker system prune -af'
+alias dexec='docker exec -it'
+alias dlogs='docker logs --tail 100 -f'
+alias compose='docker-compose'
+
+
+# ===========================
+# 🧩 Python / Node / Web Dev
+# ===========================
+alias py='python3'
+alias venv='python3 -m venv .venv && source .venv/bin/activate'
+alias runserver='python3 manage.py runserver'
+alias serve='python3 -m http.server 8000'
+alias npmi='npm install'
+alias npms='npm start'
+alias npmt='npm test'
+alias npmb='npm run build'
+alias fixperm='sudo chown -R $USER:$USER .'          # Fix permissions
+
+
+# ===========================
+# 🖥️ Tmux Helpers
+# ===========================
+alias hsp='tmux splitw'                              # Split horizontally
+alias vsp='tmux split-window -h'                     # Split vertically
+alias hbal='tmux select-layout even-horizontal'
+alias vbal='tmux select-layout even-vertical'
+alias tback='tmux select-pane -l'                    # Go back to last pane
+alias tls='tmux ls'                                  # List sessions
+alias ta='tmux attach -t'                            # Attach to session
+alias tn='tmux new -s'                               # New session
+alias tk='tmux kill-session -t'                      # Kill session
+alias tnew='tmux new-session -A -s main'             # Attach/create main session
+
+
+# ===========================
+# 🗂️ Safety & Maintenance
+# ===========================
+alias rm='rm -i'                                     # Confirm before deleting
+alias mv='mv -i'                                     # Confirm before overwriting
+alias cp='cp -i'                                     # Confirm before overwriting
+alias chmodx='chmod +x'                              # Make executable quickly
+
+
+# ===========================
+# 🔔 Notifications
+# ===========================
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" \
+"$(history | tail -n1 | sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias uptime='uptime -p'                             # Pretty uptime
+alias weather='curl wttr.in'                         # Quick weather lookup
+alias myip='curl ifconfig.me'                        # Show external IP
+alias shrug='echo "¯\\_(ツ)_/¯"'                      # Emotional debugging
+
+
+# ===========================
+# 🧩 Meta Helpers
+# ===========================
+alias aliases='cat ~/.bash_aliases | grep -E "^alias" | column -t -s"="'  # List all aliases
+alias al='alias | sort'                                                   # Show sorted aliases
+
