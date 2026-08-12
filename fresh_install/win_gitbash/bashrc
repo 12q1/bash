@@ -1,0 +1,27 @@
+# ==========================================
+# 1. Initialize Starship Prompt (First!)
+# ==========================================
+eval "$(starship init bash)"
+
+# ==========================================
+# 2. Global Variables & Editor
+# ==========================================
+export EDITOR=vim
+
+# ==========================================
+# 3. Load Aliases
+# ==========================================
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# ==========================================
+# 4. Initialize Zoxide & Fzf (Last!)
+# ==========================================
+eval "$(zoxide init bash)"
+eval "$(fzf --bash)"
+
+# Fix Zoxide's Windows Git Bash compiler bug (v0.10.0)
+function __zoxide_pwd() {
+    \command cygpath -w "$(\builtin pwd -L)"
+}
