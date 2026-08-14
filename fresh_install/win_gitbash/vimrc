@@ -1,54 +1,108 @@
+" ==============================================================================
+" Custom .vimrc configuration
+" Organized with clear comments for every setting.
+" ==============================================================================
 
-" An example for a vimrc file.
-"
-" Maintainer:	The Vim Project <https://github.com/vim/vim>
-" Last Change:	2023 Aug 10
-" Former Maintainer:	Bram Moolenaar <Bram@vim.org>
-"
-" To use it, copy it to
-"	       for Unix:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"	 for MS-Windows:  $VIM\_vimrc
-"	      for Haiku:  ~/config/settings/vim/vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
-" When started as "evim", evim.vim will already have done these settings, bail
-" out.
+" ------------------------------------------------------------------------------
+" 1. GUI Compatibility
+" ------------------------------------------------------------------------------
+" If Vim is run as 'evim' (Easy Vim, which acts like a standard GUI text editor),
+" skip the rest of this configuration file to avoid overrides.
 if v:progname =~? "evim"
   finish
 endif
 
-" Get the defaults that most users want.
+" ------------------------------------------------------------------------------
+" 2. Base Defaults
+" ------------------------------------------------------------------------------
+" Load standard default settings provided by Vim (enables things like filetype
+" detection, indentation, and basic key mappings).
 source $VIMRUNTIME/defaults.vim
 
+" ------------------------------------------------------------------------------
+" 3. Backups, Swap Files, and Undo History
+" ------------------------------------------------------------------------------
 if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
+  " OpenVMS has its own built-in file versioning system, so backups are disabled.
+  set nobackup
 else
-  set backup		" keep a backup file (restore to previous version)
+  " Keep backup files so you can restore to a previous version if needed.
+  set backup
+  
+  " Enable persistent undo (allows you to undo changes even after closing and reopening a file).
   if has('persistent_undo')
-    set undofile	" keep an undo file (undo changes after closing)
+    set undofile
+  endif
+
+  " Centralize temporary files so they don't clutter up your project folders/Git repositories.
+  " The '//' at the end tells Vim to use the full path of the file to create a unique name,
+  " preventing filename collisions between files in different directories.
+  set backupdir=~/.vim/backup//
+  set directory=~/.vim/swap//
+  set undodir=~/.vim/undo//
+
+  " Automatically create these directories on your machine if they don't exist yet.
+  if !isdirectory(expand('~/.vim/backup'))
+    call mkdir(expand('~/.vim/backup'), 'p')
+  endif
+  if !isdirectory(expand('~/.vim/swap'))
+    call mkdir(expand('~/.vim/swap'), 'p')
+  endif
+  if !isdirectory(expand('~/.vim/undo'))
+    call mkdir(expand('~/.vim/undo'), 'p')
   endif
 endif
 
+" ------------------------------------------------------------------------------
+" 4. Visual & Highlight Settings
+" ------------------------------------------------------------------------------
+" Switch on highlighting for the last used search pattern if the terminal supports color.
 if &t_Co > 2 || has("gui_running")
-  " Switch on highlighting the last used search pattern.
   set hlsearch
 endif
 
-" Put these in an autocmd group, so that we can delete them easily.
+" Always display line numbers on the left.
+set number
+
+" ------------------------------------------------------------------------------
+" 5. Filetype-Specific Rules
+" ------------------------------------------------------------------------------
+" Define a clean auto-command group for text files.
 augroup vimrcEx
   au!
-
-  " For all text files set 'textwidth' to 78 characters.
+  " For generic plain text files, wrap text at 78 characters.
   autocmd FileType text setlocal textwidth=78
 augroup END
 
-" Add optional packages.
-"
-" The matchit plugin makes the % command work better, but it is not backwards
-" compatible.
-" The ! means the package won't be loaded right away but when plugins are
-" loaded during initialization.
+" ------------------------------------------------------------------------------
+" 6. Optional Packages
+" ------------------------------------------------------------------------------
+" Load 'matchit' package (makes the '%' key match opening/closing HTML/XML tags,
+" if-else blocks, etc., in addition to simple parentheses).
 if has('syntax') && has('eval')
   packadd! matchit
 endif
+
+" ------------------------------------------------------------------------------
+" 7. Indentation & Spacing Settings
+" ------------------------------------------------------------------------------
+" Configured for standard 4-space indents (great for VS Code and ESLint compatibility).
+set expandtab     " Use spaces instead of physical tab characters when pressing Tab
+set tabstop=4     " The width of a tab character (measured in space characters)
+set shiftwidth=4  " Number of spaces used for auto-indentation steps (e.g., using '<<' or '>>')
+set softtabstop=4 " Number of spaces a Tab counts for while editing/deleting
+
+" ------------------------------------------------------------------------------
+" 8. Colorscheme & Transparency Adjustments
+" ------------------------------------------------------------------------------
+syntax on         " Enable syntax highlighting
+colorscheme slate " Use the 'slate' color scheme
+
+" Custom highlight overrides to keep comments readable and ensure the background is 
+" fully transparent (ctermbg=NONE / guibg=NONE) so your terminal's background shines through.
+highlight Comment ctermfg=7 guifg=#bcbcbc
+highlight Normal ctermbg=NONE guibg=NONE
+highlight NonText ctermbg=NONE guibg=NONE
+highlight LineNr ctermbg=NONE guibg=NONE
+highlight SignColumn ctermbg=NONE guibg=NONE
+highlight EndOfBuffer ctermbg=NONE guibg=NONE

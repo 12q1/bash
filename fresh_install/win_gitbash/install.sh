@@ -6,6 +6,10 @@ set -e
 # Find the absolute path of the directory this script is in
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+# Capture existing git user configuration before we overwrite .gitconfig
+EXISTING_NAME=$(git config --global user.name 2>/dev/null || echo "")
+EXISTING_EMAIL=$(git config --global user.email 2>/dev/null || echo "")
+
 echo "=================================================="
 echo "   Installing Git Bash Configuration Files        "
 echo "=================================================="
@@ -19,6 +23,8 @@ declare -A dotfiles=(
   ["vimrc"]=".vimrc"
   ["minttyrc"]=".minttyrc"
   ["starship.toml"]=".config/starship.toml"
+  ["gitconfig"]=".gitconfig"
+  ["gitignore_global"]=".gitignore_global"
 )
 
 # Backup and link
@@ -72,6 +78,37 @@ if command -v winget.exe &> /dev/null; then
 else
   echo "=================================================="
   echo "-> WinGet is not available. Skipping automatic tool installation."
+fi
+
+# --- Configure Local/Private Git Settings ---
+echo "=================================================="
+echo "   Configuring Local Git User Settings            "
+echo "=================================================="
+LOCAL_GITCONFIG="$HOME/.gitconfig_local"
+
+# If ~/.gitconfig_local doesn't exist, we will create it and write the settings
+if [ ! -f "$LOCAL_GITCONFIG" ]; then
+  touch "$LOCAL_GITCONFIG"
+  
+  # Resolve Git Username
+  if [ -n "$EXISTING_NAME" ]; then
+    echo "-> Migrated existing Git user.name: $EXISTING_NAME"
+    git config --file "$LOCAL_GITCONFIG" user.name "$EXISTING_NAME"
+  else
+    read -p "Enter your Git username (e.g., '12q1'): " git_name
+    git config --file "$LOCAL_GITCONFIG" user.name "$git_name"
+  fi
+
+  # Resolve Git Email
+  if [ -n "$EXISTING_EMAIL" ]; then
+    echo "-> Migrated existing Git user.email: $EXISTING_EMAIL"
+    git config --file "$LOCAL_GITCONFIG" user.email "$EXISTING_EMAIL"
+  else
+    read -p "Enter your Git email: " git_email
+    git config --file "$LOCAL_GITCONFIG" user.email "$git_email"
+  fi
+else
+  echo "-> Private ~/.gitconfig_local already exists. Skipping recreation."
 fi
 
 echo "=================================================="
