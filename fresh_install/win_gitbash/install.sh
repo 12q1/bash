@@ -23,6 +23,7 @@ declare -A dotfiles=(
   ["vimrc"]=".vimrc"
   ["minttyrc"]=".minttyrc"
   ["starship.toml"]=".config/starship.toml"
+  ["yazi.toml"]=".config/yazi/yazi.toml"
   ["gitconfig"]=".gitconfig"
   ["gitignore_global"]=".gitignore_global"
 )
@@ -49,6 +50,19 @@ for source in "${!dotfiles[@]}"; do
     echo "-> Warning: Source file $source_file does not exist, skipping."
   fi
 done
+
+# Ensure local Vim colors directory exists and link colors from repo
+if [ -d "$SCRIPT_DIR/colors" ]; then
+  mkdir -p "$HOME/.vim/colors"
+  for color_file in "$SCRIPT_DIR/colors"/*; do
+    if [ -f "$color_file" ]; then
+      color_name=$(basename "$color_file")
+      echo "-> Linking $HOME/.vim/colors/$color_name -> $color_file"
+      ln -sf "$color_file" "$HOME/.vim/colors/$color_name"
+    fi
+  done
+fi
+
 
 # --- Install Windows Packages via WinGet ---
 if command -v winget.exe &> /dev/null; then

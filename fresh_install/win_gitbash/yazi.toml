@@ -1,0 +1,10 @@
+[opener]
+edit = [
+	{ run = 'vim %s', block = true, desc = "Vim"}
+]
+
+[open]
+rules = [
+	{mime = "text/*", use = "edit"},
+	{url = "*", use = "edit"}
+]

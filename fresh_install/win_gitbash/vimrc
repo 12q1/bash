@@ -96,7 +96,7 @@ set softtabstop=4 " Number of spaces a Tab counts for while editing/deleting
 " 8. Colorscheme & Transparency Adjustments
 " ------------------------------------------------------------------------------
 syntax on         " Enable syntax highlighting
-colorscheme slate " Use the 'slate' color scheme
+colorscheme nord  " Use the 'nord' color scheme
 
 " Custom highlight overrides to keep comments readable and ensure the background is 
 " fully transparent (ctermbg=NONE / guibg=NONE) so your terminal's background shines through.
@@ -106,3 +106,11 @@ highlight NonText ctermbg=NONE guibg=NONE
 highlight LineNr ctermbg=NONE guibg=NONE
 highlight SignColumn ctermbg=NONE guibg=NONE
 highlight EndOfBuffer ctermbg=NONE guibg=NONE
+
+" ------------------------------------------------------------------------------
+" 9. Custom Mappings
+" ------------------------------------------------------------------------------
+" Map jk and kj to Escape in insert mode (industry-standard home-row escape)
+inoremap jk <Esc>
+inoremap kj <Esc>
+
