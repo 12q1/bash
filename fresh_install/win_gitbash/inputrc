@@ -1,1 +1,26 @@
+# ==============================================================================
+# Custom .inputrc (GNU Readline Configuration)
+# Controls terminal typing behavior, history search, and tab completion.
+# ==============================================================================
+
+# Disable the annoying system beep/bell on errors or completion limits
 set bell-style none
+
+# Enable case-insensitive tab autocompletion
+# (e.g., typing 'cd doc' and pressing Tab will successfully match 'Documents')
+set completion-ignore-case on
+
+# Show all matching possibilities on the first tab press
+# instead of requiring you to double-tap the Tab key.
+set show-all-if-ambiguous on
+
+# Add a trailing slash when autocompleting directory names,
+# making it clear that the completed item is a folder.
+set mark-directories on
+
+# Bind the Up arrow key to search backward through history matching only the prefix you typed
+# (e.g., type 'git ' and press Up to cycle only through past git commands)
+"\e[A": history-search-backward
+
+# Bind the Down arrow key to search forward through history matching only the prefix you typed
+"\e[B": history-search-forward
