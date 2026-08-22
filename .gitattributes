@@ -1,0 +1,11 @@
+# Normalize line endings to LF for all text files on checkout, regardless of
+# the cloning machine's core.autocrlf setting. Without this, Windows clones
+# with core.autocrlf=true silently convert these to CRLF, which breaks things
+# like git's [include] path resolution (trailing \r in an unquoted value).
+* text=auto eol=lf
+*.sh text eol=lf
+
+# Fonts are binary; keep them untouched either way (auto-detected, but explicit
+# for clarity).
+*.ttf binary
+*.ico binary
