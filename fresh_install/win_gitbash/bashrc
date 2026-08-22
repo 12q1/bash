@@ -10,14 +10,22 @@ export EDITOR=vim
 export YAZI_CONFIG_HOME="$HOME/.config/yazi"
 
 # ==========================================
-# 3. Load Aliases
+# 3. History Settings
+# ==========================================
+export HISTSIZE=50000
+export HISTFILESIZE=50000
+export HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+
+# ==========================================
+# 4. Load Aliases
 # ==========================================
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
 # ==========================================
-# 4. Initialize Zoxide & Fzf (Last!)
+# 5. Initialize Zoxide & Fzf (Last!)
 # ==========================================
 eval "$(zoxide init bash)"
 eval "$(fzf --bash)"

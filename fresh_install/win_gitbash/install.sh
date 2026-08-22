@@ -78,6 +78,7 @@ if command -v winget.exe &> /dev/null; then
     ["eza"]="eza-community.eza"
     ["zoxide"]="ajeetdsouza.zoxide"
     ["fzf"]="junegunn.fzf"
+    ["bat"]="sharkdp.bat"
   )
 
   for cmd in "${!cli_packages[@]}"; do

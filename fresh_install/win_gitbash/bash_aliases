@@ -12,6 +12,25 @@
 alias yazi='yazi.exe'
 alias btop='btop4win.exe'
 
+# Merge newly-installed package dirs (e.g. after `winget install`) into the
+# current shell's PATH without restarting the window. Windows Terminal/Git
+# Bash inherit their environment block at launch, so `reload`/`exec "$SHELL"`
+# alone never picks up registry PATH changes.
+resenv() {
+    local win_path unix_list entry
+    win_path=$(powershell.exe -NoProfile -Command '[System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")' | tr -d '\r')
+    unix_list=$(cygpath -up "$win_path")
+    IFS=':' read -ra entries <<< "$unix_list"
+    for entry in "${entries[@]}"; do
+        case ":$PATH:" in
+            *":$entry:"*) ;;
+            *) PATH="$PATH:$entry" ;;
+        esac
+    done
+    export PATH
+    hash -r
+}
+
 
 # ===========================
 # ⚡️ General Quality-of-Life
