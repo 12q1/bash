@@ -79,6 +79,8 @@ if command -v winget.exe &> /dev/null; then
     ["zoxide"]="ajeetdsouza.zoxide"
     ["fzf"]="junegunn.fzf"
     ["bat"]="sharkdp.bat"
+    ["delta"]="dandavison.delta"
+    ["lazygit"]="JesseDuffield.lazygit"
   )
 
   for cmd in "${!cli_packages[@]}"; do

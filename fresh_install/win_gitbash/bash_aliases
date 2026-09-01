@@ -50,7 +50,7 @@ alias editrc='nano ~/.bashrc'                    # Edit .bashrc quickly
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias winhome='cd /c/Users/$USER'        # Jump to Windows home (Git Bash /c/)
+alias winhome='cd "$HOME"'               # Jump to Windows home (Git Bash /c/)
 alias findme='explorer.exe .'                         # Open current dir in Explorer
 alias mkcd='foo(){ mkdir -p "$1" && cd "$1"; }; foo'  # Create + enter directory
 
@@ -105,6 +105,7 @@ alias gundo='git reset --soft HEAD~1'                # Undo last commit
 alias gitclean='git branch --merged | grep -E -v "(^\*|master|main|dev)" | xargs -r git branch -d'
 # Force delete all branches (excluding active branch, master, main, and dev)
 alias gitpurge='git branch | grep -E -v "(^\*|master|main|dev)" | xargs -r git branch -D'
+alias lg='lazygit'                                   # Terminal UI for git
 
 
 # ===========================

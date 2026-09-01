@@ -96,7 +96,7 @@ set softtabstop=4 " Number of spaces a Tab counts for while editing/deleting
 " 8. Colorscheme & Transparency Adjustments
 " ------------------------------------------------------------------------------
 syntax on         " Enable syntax highlighting
-colorscheme nord  " Use the 'nord' color scheme
+colorscheme molokai  " Use 'molokai', matching bat's default 'Monokai Extended' theme
 
 " Custom highlight overrides to keep comments readable and ensure the background is 
 " fully transparent (ctermbg=NONE / guibg=NONE) so your terminal's background shines through.
