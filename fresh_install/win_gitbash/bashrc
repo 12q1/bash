@@ -25,7 +25,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # ==========================================
-# 5. Initialize Zoxide & Fzf (Last!)
+# 5. Initialize Zoxide & Fzf
 # ==========================================
 eval "$(zoxide init bash)"
 eval "$(fzf --bash)"
@@ -34,3 +34,16 @@ eval "$(fzf --bash)"
 function __zoxide_pwd() {
     \command cygpath -w "$(\builtin pwd -L)"
 }
+
+# ==========================================
+# 6. Git Completion (Last! fzf's completion setup
+# overwrites git's own completion for the bare
+# 'git' command otherwise)
+# ==========================================
+if [ -f /mingw64/share/git/completion/git-completion.bash ]; then
+    source /mingw64/share/git/completion/git-completion.bash
+    __git_complete gco _git_checkout
+    __git_complete gb _git_branch
+    __git_complete gp _git_push
+    __git_complete gl _git_log
+fi
