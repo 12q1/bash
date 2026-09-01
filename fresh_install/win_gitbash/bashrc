@@ -1,16 +1,36 @@
 # ==========================================
-# 1. Initialize Starship Prompt (First!)
+# 1. Shell-Init Cache
 # ==========================================
-eval "$(starship init bash)"
+# `starship init`, `zoxide init`, and `fzf --bash` each spawn a
+# subprocess just to print a static shell script. Process spawn is
+# slow on Windows/MSYS (~50-250ms each), which was pushing shell
+# startup past half a second and swallowing the first keystroke if
+# you typed before readline was ready. Cache each generated script
+# to a file and just source it instead. Run `refreshinit` after
+# upgrading starship/zoxide/fzf or editing starship.toml.
+_init_cache="$HOME/.cache/shell-init"
+mkdir -p "$_init_cache"
+
+_cached_init() {
+    local name="$1" file="$_init_cache/$1.sh"
+    shift
+    [ -f "$file" ] || "$@" > "$file"
+    source "$file"
+}
 
 # ==========================================
-# 2. Global Variables & Editor
+# 2. Initialize Starship Prompt (First!)
+# ==========================================
+_cached_init starship starship init bash --print-full-init
+
+# ==========================================
+# 3. Global Variables & Editor
 # ==========================================
 export EDITOR=vim
 export YAZI_CONFIG_HOME="$HOME/.config/yazi"
 
 # ==========================================
-# 3. History Settings
+# 4. History Settings
 # ==========================================
 export HISTSIZE=50000
 export HISTFILESIZE=50000
@@ -18,17 +38,17 @@ export HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 
 # ==========================================
-# 4. Load Aliases
+# 5. Load Aliases
 # ==========================================
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
 # ==========================================
-# 5. Initialize Zoxide & Fzf
+# 6. Initialize Zoxide & Fzf
 # ==========================================
-eval "$(zoxide init bash)"
-eval "$(fzf --bash)"
+_cached_init zoxide zoxide init bash
+_cached_init fzf fzf --bash
 
 # Fix Zoxide's Windows Git Bash compiler bug (v0.10.0)
 function __zoxide_pwd() {
@@ -36,7 +56,7 @@ function __zoxide_pwd() {
 }
 
 # ==========================================
-# 6. Git Completion (Last! fzf's completion setup
+# 7. Git Completion (Last! fzf's completion setup
 # overwrites git's own completion for the bare
 # 'git' command otherwise)
 # ==========================================

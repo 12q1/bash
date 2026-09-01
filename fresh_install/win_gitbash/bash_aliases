@@ -42,6 +42,7 @@ alias path='echo -e ${PATH//:/\\n}'              # Pretty print PATH
 alias editbash='nano ~/.bash_aliases'            # Edit this file
 alias reloadbash='source ~/.bash_aliases'        # Reload aliases
 alias editrc='nano ~/.bashrc'                    # Edit .bashrc quickly
+alias refreshinit='rm -rf ~/.cache/shell-init && exec "$SHELL"'  # Regenerate cached starship/zoxide/fzf init (run after upgrading them)
 
 
 # ===========================
