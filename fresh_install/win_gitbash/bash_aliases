@@ -102,6 +102,11 @@ alias gl='git log --oneline --graph --decorate'      # Pretty log graph
 alias gac='git add . && git commit -m'               # Add all + commit
 alias amend='git commit --amend --no-edit'           # Amend last commit
 alias gundo='git reset --soft HEAD~1'                # Undo last commit
+# Delta layout toggle: default is unified (set in ~/.gitconfig). Override
+# per-command with either of these, works with diff/show/log -p/stash show -p:
+#   gds diff        gds show HEAD     gds log -p
+alias gds='git -c delta.side-by-side=true'           # force side-by-side (wide terminal)
+alias gdu='git -c delta.side-by-side=false'          # force unified (narrow terminal / explicit)
 # Clean up merged branches (excluding active branch, master, main, and dev)
 alias gitclean='git branch --merged | grep -E -v "(^\*|master|main|dev)" | xargs -r git branch -d'
 # Force delete all branches (excluding active branch, master, main, and dev)

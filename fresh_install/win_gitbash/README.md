@@ -73,6 +73,15 @@ per-user; the root `.gitattributes` does the same thing more explicitly and
 per-file-type (and matters more, since it's enforced for anyone who clones
 the repo, not just this machine).
 
+### Delta layout: unified by default, side-by-side on demand
+
+`gitconfig` sets `delta.side-by-side = false` as the baseline (works at any
+terminal width, closest to stock `git diff`). Rather than picking one layout
+permanently, `bash_aliases` adds `gds`/`gdu` to override it per-invocation via
+`git -c delta.side-by-side=<bool>` — this works for any pager-backed command
+(`diff`, `show`, `log -p`, `stash show -p`), not just `diff`. Use `gds` when
+you've got a wide terminal, plain `git diff`/`gl`/etc. otherwise.
+
 ### Git completion must be sourced *after* fzf, not before
 
 `bashrc` sources `/mingw64/share/git/completion/git-completion.bash` (bundled
