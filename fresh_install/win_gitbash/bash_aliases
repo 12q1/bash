@@ -167,5 +167,5 @@ alias shrug='echo "¯\\_(ツ)_/¯"'                      # Emotional debugging
 # ===========================
 # 🧩 Meta Helpers
 # ===========================
-alias aliases='cat ~/.bash_aliases | grep -E "^alias" | column -t -s"="'  # List all aliases
+alias aliases='bat ~/.bash_aliases'  # List all aliases
 alias al='alias | sort'                                                   # Show sorted aliases
