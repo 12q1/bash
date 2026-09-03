@@ -10,6 +10,12 @@ Actively maintained configs. Currently just:
 
 More profiles (e.g. a Linux/WSL dev environment) may show up here over time as I rebuild them.
 
+## `assets/`
+
+Shared resources used by more than one profile (or still actively used regardless of which
+profile is current). Currently just [`fonts/`](assets/fonts/) — Nerd Font builds referenced by
+`profiles/win_gitbash` (e.g. `terminal_settings.json`'s font face).
+
 ## `archive/`
 
 Old setups from earlier machines/OSes that I no longer run or maintain, kept around because

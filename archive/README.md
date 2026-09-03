@@ -10,8 +10,9 @@ of past machines, not a starting point for a new one.
   Ubuntu 18.04.
 - **`ubuntu_24.04/`** — a later WSL setup attempt (aliases, starship config, two setup scripts)
   for Ubuntu 24.04. Newer than the others but superseded before it saw real day-to-day use.
-- **`fonts/`** — Nerd Font builds (RobotoMono, Terminess) bundled for offline install on the
-  older setups above.
 
 If a Linux/WSL profile gets actively rebuilt again, it'll live under `../profiles/`, not here —
 these folders stay frozen as-is.
+
+(Fonts used to live here too, but RobotoMono Nerd Font is still in active use by
+`profiles/win_gitbash`, so it moved to `../assets/fonts/` instead of staying archived.)
