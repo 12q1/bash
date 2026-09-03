@@ -9,8 +9,33 @@
 # ==========================
 # Gitbash Windows stuff
 # ==========================
-alias yazi='yazi.exe'
 alias btop='btop4win.exe'
+
+# cd into whatever directory yazi was last in when it quits.
+# Named `yazi` (not `y`) so plain `yazi` gets this behavior; an
+# `alias yazi='yazi.exe'` here would win over this function since bash
+# expands aliases textually before function lookup even runs.
+# yazi.exe is a native Windows binary: it writes its cwd in Windows path
+# form (C:\Users\...), possibly with a trailing \r, so that's trimmed and
+# run through cygpath -u before `cd` will accept it. `command rm` dodges
+# the rm='rm -i' alias (bash bakes alias expansions into function bodies
+# at definition time, so a bare `rm` here would prompt on every exit).
+# `builtin cd` and the `-d` existence check guard against a shadowed `cd`
+# or a garbage/partial cwd-file on a fresh install.
+yazi() {
+    local tmp cwd
+    tmp="$(mktemp -t "yazi-cwd.XXXXXX")" || return
+    yazi.exe "$@" --cwd-file="$tmp"
+    cwd="$(cat -- "$tmp")"
+    cwd="${cwd%$'\r'}"
+    command rm -f -- "$tmp"
+    if [ -n "$cwd" ]; then
+        cwd="$(cygpath -u -- "$cwd" 2>/dev/null || printf '%s' "$cwd")"
+        if [ "$cwd" != "$PWD" ] && [ -d "$cwd" ]; then
+            builtin cd -- "$cwd"
+        fi
+    fi
+}
 
 # Merge newly-installed package dirs (e.g. after `winget install`) into the
 # current shell's PATH without restarting the window. Windows Terminal/Git
